@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false;
     public static bool isSelectingDifficulty = true;
     public static int difficulty = 0;
-    public GameObject difficultyMenu;
-    
+    public static GameObject difficultyMenu;
+    public static GameObject pauseMenu;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        difficultyMenu = GameObject.Find("DifficultyScreen");
+        pauseMenu = GameObject.Find("PauseScreen");
+        pauseMenu.SetActive(!isSelectingDifficulty);
     }
 
     // Update is called once per frame
@@ -28,11 +31,14 @@ public class GameManager : MonoBehaviour
         {
             // Release the mouse
             Cursor.lockState = CursorLockMode.None;
+            pauseMenu.SetActive(true);
+            
         }
         else
         {
             // Lock the mouse
             Cursor.lockState = CursorLockMode.Locked;
+            pauseMenu.SetActive(false);
         }
         isPaused = state;
     }
