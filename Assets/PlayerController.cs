@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject camera;
+    public new GameObject camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +28,14 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0, mouseX, 0);
         camera.transform.Rotate(-mouseY, 0, 0);
         
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
+        }
 
-        
-        
+
+
+
     }
 }

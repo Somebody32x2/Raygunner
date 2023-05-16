@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false;
     public static bool isSelectingDifficulty = true;
     public static int difficulty = 0;
-    public static GameObject difficultyMenu;
-    public static GameObject pauseMenu;
+    private static GameObject difficultyMenu;
+    private static GameObject pauseMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
             // Release the mouse
             Cursor.lockState = CursorLockMode.None;
             pauseMenu.SetActive(true);
+            Time.timeScale = 0;
             
         }
         else
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
             // Lock the mouse
             Cursor.lockState = CursorLockMode.Locked;
             pauseMenu.SetActive(false);
+            Time.timeScale = 1;
         }
         isPaused = state;
     }
