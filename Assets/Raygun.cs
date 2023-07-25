@@ -25,7 +25,9 @@ public class Raygun : MonoBehaviour
     // private ParticleSystem ps;
 
     public Transform rayStick;
-    
+    private static readonly int Color1 = Shader.PropertyToID("_Color");
+    private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,15 +43,18 @@ public class Raygun : MonoBehaviour
         rayStick.localPosition = new Vector3(0, range + 1f, 0);
         
         // Set the color of the RayStick (Cylinder representing laser) TODO: FIX
-        Material rayMat = rayStick.GetComponent<MeshRenderer>().material;
-        Texture2D colorTex = new Texture2D(1, 1);
-        colorTex.SetPixel(0, 0, color);
-        rayMat.mainTexture = colorTex;
+        // Material rayMat = rayStick.GetComponent<MeshRenderer>().material;
+        rayStick.GetComponent<MeshRenderer>().material.SetColor(Color1, color);
+        rayStick.GetComponent<MeshRenderer>().material.SetColor(EmissionColor, color);
+        // Texture2D colorTex = new Texture2D(1, 1);
+        // colorTex.SetPixel(0, 0, color);
+        // rayMat.mainTexture = colorTex;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0) return;
         cooldown = Mathf.Max(cooldown - Time.deltaTime, 0);
         coolOn = Mathf.Max(coolOn - Time.deltaTime, 0);
         if (Input.GetMouseButton(0) && cooldown <= 0 && coolOn <= 0 && !isOn)
